@@ -1,0 +1,29 @@
+jupyter:
+  name: jupyter
+  env:
+    - name: EXTRA_CONDA_PACKAGES
+      value: numpy zarr netCDF4 xarray s3fs -c conda-forge --yes
+    - name: AWS_ACCESS_KEY_ID
+      value: xxx
+    - name: AWS_SECRET_ACCESS_KEY
+      value: xxx
+
+worker:
+  name: worker
+  env:
+    - name: EXTRA_CONDA_PACKAGES
+      value: numpy zarr netCDF4 xarray s3fs -c conda-forge --yes
+    - name: AWS_ACCESS_KEY_ID
+      value: xxx
+    - name: AWS_SECRET_ACCESS_KEY
+      value: xxx
+
+scheduler:
+  name: scheduler
+  env:
+    - name: EXTRA_CONDA_PACKAGES
+      value: numpy zarr netCDF4 xarray s3fs -c conda-forge --yes
+    - name: AWS_ACCESS_KEY_ID
+      value: xxx
+    - name: AWS_SECRET_ACCESS_KEY
+      value: xxx

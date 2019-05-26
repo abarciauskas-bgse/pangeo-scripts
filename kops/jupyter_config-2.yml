@@ -1,0 +1,43 @@
+jupyterhub:
+  # Helm config for jupyterhub goes here
+  # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
+
+  singleuser:
+    image:
+      name: esip/pangeo-notebook
+      tag: 2019-03-14
+    cpu:
+      limit: 8
+      guarantee: 1
+    memory:
+      limit: 15G
+      guarantee: 4G
+    defaultUrl: "/tree"
+
+    storage:
+      extraVolumes:
+      - name: s3
+        flexVolume:
+          driver: "informaticslab/pysssix-flex-volume"
+          options:
+            readonly: "true"
+      - name: scratch
+        flexVolume:
+          driver: "informaticslab/goofys-flex-volume"
+          options:
+            bucket: "esip-pangeo-scratch"
+            dirMode: "0777"
+            fileMode: "0777"
+      extraVolumeMounts:
+      - name: s3
+        mountPath: /s3
+      - name: scratch
+        mountPath: /scratch
+
+  proxy:
+    secretToken: "SECRET"
+    https:
+      hosts:
+        - pangeo.esipfed.org
+      letsencrypt:
+        contactEmail: rsignell@usgs.gov
