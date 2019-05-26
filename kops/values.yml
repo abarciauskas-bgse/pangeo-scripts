@@ -16,14 +16,15 @@ rbac:
 jupyterhub:
   # Helm config for jupyterhub goes here
   # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
-
+  env:
+    - name: EXTRA_CONDA_PACKAGES
+      value: numpy zarr netCDF4 xarray s3fs -c conda-forge --yes
   singleuser:
     image:
       name: pangeo/base-notebook
       tag: 2019.01.25
     defaultUrl: "/lab"
     cmd: jupyter-labhub
-    serviceAccountName: daskkubernetes
   prePuller:
     hook:
       enabled: false
@@ -33,7 +34,7 @@ jupyterhub:
       enabled: true
       replicas: 2
     podPriority:
-      enabled: true
+      enabled: false
     userPlaceholder:
       enabled: true
       replicas: 2
